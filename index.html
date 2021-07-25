@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            color: #FFF;
+            margin-bottom: 20px;
+        }
+
+        .relogio {
+            width: 300px;
+            height: 300px;
+            border: 5px solid #FFF;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .riscos {
+            width: 100%;
+            height: 100%;
+            padding-left: 50%;
+            padding-top: 50%;
+            margin-top: -3px;
+        }
+
+        .risco {
+            width: 145px;
+            height: 5px;
+            position: absolute;
+            transform-origin: left;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .risco .ponto {
+            width: 15px;
+            height: 100%;
+            background-color: #FFF;
+        }
+
+        .ponteiros {
+            width: 100%;
+            height: 100%;
+            padding-left: 50%;
+            padding-top: 50%;
+            margin-top: -100%;
+        }
+
+        .p {
+            transform-origin: left;
+            transform: rotate(0deg);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .p_s {
+            width: 100px;
+            height: 3px;
+            background-color: #F00;
+        }
+
+        .p_m {
+            width: 120px;
+            height: 7px;
+            background-color: #FFF;
+        }
+
+        .p_h {
+            width: 70px;
+            height: 10px;
+            background-color: #FFF;
+        }
+
+        .encaixe {
+            width: 20px;
+            height: 20px;
+            background-color: #FFF;
+            border-radius: 50%;
+            position: absolute;
+            margin-top: -5px;
+            margin-left: -5px;
+        }
+
+        .digital {
+            color: #FFF;
+            font-size: 40px;
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 20px;
+            color: #FFF;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Relógio Analógico</h1>
+
+    <div class="relogio">
+        <div class="riscos">
+            <div class="risco" style="transform: rotate(0deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(30deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(60deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(90deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(120deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(150deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(180deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(210deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(240deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(270deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(300deg)">
+                <div class="ponto"></div>
+            </div>
+            <div class="risco" style="transform: rotate(330deg)">
+                <div class="ponto"></div>
+            </div>
+        </div>
+        <div class="ponteiros">
+            <div class="p p_s"></div>
+            <div class="p p_m"></div>
+            <div class="p p_h"></div>
+            <div class="encaixe"></div>
+        </div>
+    </div>
+
+    <div class="digital">--:--:--</div>
+
+    <script>
+        let relogioDigital = document.querySelector('.digital');
+        let ponteiroSegundo = document.querySelector('.p_s');
+        let ponteiroMinuto = document.querySelector('.p_m');
+        let ponteiroHora = document.querySelector('.p_h');
+
+        updateClock();
+        setInterval(updateClock, 100);
+
+        function updateClock() {
+            let now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            relogioDigital.innerHTML = `${fixZero(hours)}:${fixZero(minutes)}:${fixZero(seconds)}`;
+
+            ponteiroSegundo.style.transform = `rotate(${(seconds * 6) - 90}deg)`;
+            ponteiroMinuto.style.transform = `rotate(${(minutes * 6) - 90}deg)`;
+            ponteiroHora.style.transform = `rotate(${(hours * 30) - 90}deg)`;
+
+        }
+
+        function fixZero(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+    </script>
+</body>
+
+</html>
